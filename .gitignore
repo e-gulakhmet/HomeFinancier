@@ -1,1 +1,4 @@
 .idea
+
+# Poetry
+poetry.lock
