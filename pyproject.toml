@@ -12,6 +12,7 @@ python = "^3.11"
 [tool.poetry.group.dev.dependencies]
 black = "^23.9.0"
 ruff = "^0.0.287"
+mypy = "^1.5.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -34,3 +35,6 @@ ignore = [
     "B008",  # do not perform function calls in argument defaults
     "C901",  # too complex
 ]
+
+[tool.mypy]
+strict = true
