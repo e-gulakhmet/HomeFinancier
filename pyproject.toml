@@ -11,6 +11,7 @@ python = "^3.11"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.9.0"
+ruff = "^0.0.287"
 
 [build-system]
 requires = ["poetry-core"]
@@ -18,3 +19,18 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 88
+
+[tool.ruff]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
