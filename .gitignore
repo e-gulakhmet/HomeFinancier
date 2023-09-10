@@ -2,3 +2,9 @@
 
 # Poetry
 poetry.lock
+
+# Mypy
+.mypy_cache
+
+# Ruff
+.ruff_cache
