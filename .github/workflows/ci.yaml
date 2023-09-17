@@ -28,7 +28,7 @@ jobs:
         run: pip install black
 
       - name: Run black
-        run: black
+        run: black . --check --diff
 
   lint:
     name: lint
@@ -46,7 +46,7 @@ jobs:
         run: pip install ruff
 
       - name: Run ruff
-        run: ruff
+        run: ruff check src tests
 
   type-check:
     name: type-check
@@ -64,7 +64,7 @@ jobs:
         run: pip install mypy
 
       - name: Run mypy
-        run: mypy .
+        run: mypy src tests
 
   test:
     name: test
