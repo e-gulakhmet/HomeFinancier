@@ -63,7 +63,7 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Run mypy
-        run: mypy src tests
+        run: poetry run mypy
 
   test:
     name: Testing
