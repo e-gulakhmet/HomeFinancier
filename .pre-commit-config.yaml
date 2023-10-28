@@ -15,3 +15,13 @@ repos:
           - id: ruff
             args:
                 - --fix
+    - repo: local
+      hooks:
+        - id: mypy
+          name: mypy
+          # or `entry: poetry run mypy`, but perhaps both are the same
+          entry: mypy
+          require_serial: true
+          # From the docs it is not clear the difference between `language: python` VS `language: system`
+          language: system
+          types: [ python ]
