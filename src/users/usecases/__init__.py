@@ -5,6 +5,10 @@ from .create import (
     UserCreateUseCase,
     UserCreateUseCaseValidationRules,
 )
+from .exist import (
+    UserExistRepositoryInterface,
+    UserExistUseCase,
+)
 
 __all__ = [
     "UserCreateUseCase",
@@ -12,4 +16,6 @@ __all__ = [
     "UserCreateRepoInterface",
     "UserCreateHashingProviderInterface",
     "UserCreateUseCaseValidationRules",
+    "UserExistUseCase",
+    "UserExistRepositoryInterface",
 ]
