@@ -16,7 +16,7 @@ async def test__storage_repo_is_called_to_get_storage(usecase: StorageGetUseCase
 
     await usecase.execute(filter_={"user_id": user_id, "id": storage_id, "primary": primary})
 
-    spy.assert_called_once_with(user_id=user_id, id=storage_id, primary=primary)
+    spy.assert_called_once_with(filter_={"user_id": user_id, "id": storage_id, "primary": primary})
 
 
 async def test__storage_repo_response_is_returned(
