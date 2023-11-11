@@ -18,5 +18,7 @@ def user() -> User:
 def storage() -> Storage:
     return Storage(
         link="https://www.example.com",
+        expenses_table_link="https://www.example.com/expenses",
+        income_table_link="https://www.example.com/income",
         user_id=uuid.uuid4(),
     )

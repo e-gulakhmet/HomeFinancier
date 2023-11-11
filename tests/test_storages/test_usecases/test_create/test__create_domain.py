@@ -13,3 +13,5 @@ async def test_domain_entity_is_created(usecase: StorageCreateUseCase, input_: S
     assert storage.link == input_.link
     assert storage.user_id == input_.user_id
     assert storage.primary is False
+    assert storage.expenses_table_link == input_.expenses_table_link
+    assert storage.income_table_link == input_.income_table_link

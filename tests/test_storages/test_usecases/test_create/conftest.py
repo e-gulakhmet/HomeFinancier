@@ -19,7 +19,10 @@ def usecase(mocker: MockerFixture) -> StorageCreateUseCase:
 
 @pytest.fixture()
 def input_() -> StorageCreateInput:
+    link_to_storage = "https://www.fake_storage.com/123456789"
     return StorageCreateInput(
-        link="https://www.fake_storage.com/123456789",
+        link=link_to_storage,
+        expenses_table_link=f"{link_to_storage}/expenses",
+        income_table_link=f"{link_to_storage}/income",
         user_id=uuid.uuid4(),
     )

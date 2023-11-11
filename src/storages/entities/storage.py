@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 @dataclass
 class Storage:
     link: str
+    expenses_table_link: str
+    income_table_link: str
     user_id: uuid.UUID
     primary: bool = False
 
