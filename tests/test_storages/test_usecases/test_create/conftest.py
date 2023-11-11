@@ -8,14 +8,12 @@ from src.storages.usecases import (
     StorageCreateRepoInterface,
     StorageCreateUseCase,
 )
-from src.users.usecases import UserExistUseCase
 
 
 @pytest.fixture()
 def usecase(mocker: MockerFixture) -> StorageCreateUseCase:
     return StorageCreateUseCase(
         storage_repo=mocker.Mock(spec=StorageCreateRepoInterface),
-        user_exist_usecase=mocker.Mock(spec=UserExistUseCase),
     )
 
 

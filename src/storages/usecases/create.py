@@ -5,7 +5,6 @@ from dataclasses import dataclass
 
 from src.exceptions import ValidationError
 from src.storages.entities import Storage
-from src.users.usecases import UserExistUseCase
 
 
 class StorageCreateRepoInterface(abc.ABC):
@@ -32,10 +31,8 @@ class StorageCreateUseCase:
     def __init__(
             self,
             storage_repo: StorageCreateRepoInterface,
-            user_exist_usecase: UserExistUseCase,
     ) -> None:
         self._storage_repo = storage_repo
-        self._user_exist_usecase = user_exist_usecase
 
     async def execute(self, input_: StorageCreateInput) -> Storage:
         # Validating input
@@ -56,8 +53,6 @@ class StorageCreateUseCase:
     async def _validate(self, input_: StorageCreateInput) -> None:
         await self._validate_storage_link(link=input_.link)
 
-        if not await self._user_exist_usecase.execute(user_id=input_.user_id):
-            raise ValidationError(field="user_id", message="User does not exist")
 
     async def _validate_storage_link(self, link: str) -> None:
         if not self._is_correct_storage_link_format(link=link):
