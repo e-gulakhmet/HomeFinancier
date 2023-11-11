@@ -5,7 +5,6 @@ from dataclasses import dataclass
 
 from src.exceptions import ValidationError
 from src.storages.entities import Storage
-from src.users.usecases import UserExistUseCase
 
 
 class StorageCreateRepoInterface(abc.ABC):
@@ -25,17 +24,17 @@ class StorageCreateRepoInterface(abc.ABC):
 @dataclass
 class StorageCreateInput:
     link: str
+    expenses_table_link: str
+    income_table_link: str
     user_id: uuid.UUID
 
 
 class StorageCreateUseCase:
     def __init__(
-            self,
-            storage_repo: StorageCreateRepoInterface,
-            user_exist_usecase: UserExistUseCase,
+        self,
+        storage_repo: StorageCreateRepoInterface,
     ) -> None:
         self._storage_repo = storage_repo
-        self._user_exist_usecase = user_exist_usecase
 
     async def execute(self, input_: StorageCreateInput) -> Storage:
         # Validating input
@@ -55,9 +54,8 @@ class StorageCreateUseCase:
 
     async def _validate(self, input_: StorageCreateInput) -> None:
         await self._validate_storage_link(link=input_.link)
-
-        if not await self._user_exist_usecase.execute(user_id=input_.user_id):
-            raise ValidationError(field="user_id", message="User does not exist")
+        await self._validate_expenses_table_link(link=input_.expenses_table_link)
+        await self._validate_income_table_link(link=input_.income_table_link)
 
     async def _validate_storage_link(self, link: str) -> None:
         if not self._is_correct_storage_link_format(link=link):
@@ -65,6 +63,20 @@ class StorageCreateUseCase:
 
         if not await self._storage_repo.is_accessable(link=link):
             raise ValidationError(field="link", message="Storage is not accessable")
+
+    async def _validate_expenses_table_link(self, link: str) -> None:
+        if not self._is_correct_storage_link_format(link=link):
+            raise ValidationError(field="expenses_table_link", message="Invalid link to Expenses table")
+
+        if not await self._storage_repo.is_accessable(link=link):
+            raise ValidationError(field="expenses_table_link", message="Expenses table is not accessable")
+
+    async def _validate_income_table_link(self, link: str) -> None:
+        if not self._is_correct_storage_link_format(link=link):
+            raise ValidationError(field="income_table_link", message="Invalid link to Income table")
+
+        if not await self._storage_repo.is_accessable(link=link):
+            raise ValidationError(field="income_table_link", message="Income table is not accessable")
 
     def _is_correct_storage_link_format(self, link: str) -> bool:
         # Check if link is Google Sheets link
@@ -74,5 +86,7 @@ class StorageCreateUseCase:
     def _create_domain(self, input_: StorageCreateInput) -> Storage:
         return Storage(
             link=input_.link,
+            expenses_table_link=input_.expenses_table_link,
+            income_table_link=input_.income_table_link,
             user_id=input_.user_id,
         )
