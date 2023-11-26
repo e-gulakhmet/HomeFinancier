@@ -29,6 +29,8 @@ ignore = [
     "FBT001", # https://docs.astral.sh/ruff/rules/boolean-type-hint-positional-argument/
     "ANN101", # https://docs.astral.sh/ruff/rules/missing-type-self/
     "A003", # https://docs.astral.sh/ruff/rules/builtin-attribute-shadowing/
+    "TCH002", # https://docs.astral.sh/ruff/rules/typing-only-third-party-import/
+    "FA102", # https://docs.astral.sh/ruff/rules/future-required-type-annotation/
 ]
 fix = true
 exclude = [
