@@ -44,6 +44,7 @@ exclude = [
     ".venv",
     "__pypackages__",
     "venv",
+    "migrations",
 ]
 
 [tool.ruff.per-file-ignores]
@@ -74,4 +75,5 @@ exclude = [
     ".venv",
     "__pypackages__",
     "venv",
+    "migrations",
 ]
