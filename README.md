@@ -28,4 +28,7 @@
 ## Documentation
 ### Migrations
 [dbmate](https://github.com/amacneil/dbmate) is used for migrations. It is CLI program that gives you an ability to manage migration using raw SQL. And, heh, written in GO :)
-Use `dbmate` from `./migrations/` directory(this directory contains envs for `dbmate`)
+
+
+## CLI interface
+[just](https://github.com/casey/just) is used for CLI interface. It is like a `make`, but lighter and faster.
