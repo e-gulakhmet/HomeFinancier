@@ -1,12 +1,12 @@
 import abc
-import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
 
 from src.expenses.entities import Expense
 from src.expenses.exceptions import UserShouldHavePrimaryStorageError
-from src.storages.entities import Storage
-from src.storages.usecases import StorageGetUseCase
+from src.expenses.types import Amount, Category, ExpensesStorageLink, OwnerID
+from src.storages import OwnerID as StorageOwnerID
+from src.storages import StorageGetUseCase
 
 
 class ExpenseCreateRepoInterface(abc.ABC):
@@ -17,9 +17,9 @@ class ExpenseCreateRepoInterface(abc.ABC):
 
 @dataclass
 class ExpenseCreateInput:
-    user_id: uuid.UUID
-    amount: float
-    category: str
+    owner_id: OwnerID
+    amount: Amount
+    category: Category
     subcategory: str = ""
     created_at: datetime = field(default_factory=datetime.now)
 
@@ -35,24 +35,21 @@ class ExpenseCreateUseCase:
 
     async def execute(self, input_: ExpenseCreateInput) -> Expense:
         # Getting User's Primary Storage
-        storage = await self._storage_get_usecase.execute(filter_={"user_id": input_.user_id, "primary": True})
+        storage = await self._storage_get_usecase.execute(
+            filter_={"owner_id": StorageOwnerID(input_.owner_id), "primary": True},
+        )
         if not storage:
             raise UserShouldHavePrimaryStorageError
 
-        # Creating domain entity
-        expense = self._create_domain(input_=input_, storage=storage)
-
-        # Saving Storage to repository
-        await self._expense_repo.save(expense=expense)
-
-        return expense
-
-    def _create_domain(self, input_: ExpenseCreateInput, storage: Storage) -> Expense:
-        return Expense(
-            user_id=input_.user_id,
-            exepenses_storage_link=storage.expenses_table_link,
+        expense = Expense(
+            owner_id=input_.owner_id,
+            expenses_storage_link=ExpensesStorageLink(storage.expenses_table_link),
             amount=input_.amount,
             category=input_.category,
             subcategory=input_.subcategory,
             created_at=input_.created_at,
         )
+
+        await self._expense_repo.save(expense)
+
+        return expense
