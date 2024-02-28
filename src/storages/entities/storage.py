@@ -2,14 +2,16 @@ import datetime
 import uuid
 from dataclasses import dataclass, field
 
+from src.storages.types import OwnerID, StorageID, StorageLink
+
 
 @dataclass
 class Storage:
-    link: str
-    expenses_table_link: str
-    income_table_link: str
-    user_id: uuid.UUID
+    link: StorageLink
+    expenses_table_link: StorageLink
+    income_table_link: StorageLink
+    owner_id: OwnerID
     primary: bool = False
 
-    id: uuid.UUID = field(default_factory=uuid.uuid4)
+    id: StorageID = field(default_factory=lambda: StorageID(uuid.uuid4()))
     created_at: datetime.datetime = field(default_factory=datetime.datetime.now)
