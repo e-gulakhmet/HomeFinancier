@@ -1,14 +1,14 @@
 import abc
-import uuid
 from typing import TypedDict
 
 from src.storages.entities import Storage
+from src.storages.types import OwnerID, StorageID, StorageLink
 
 
 class Filter(TypedDict, total=False):
-    id: uuid.UUID
-    user_id: uuid.UUID
-    link: str
+    id: StorageID
+    owner_id: OwnerID
+    link: StorageLink
     primary: bool
 
 
