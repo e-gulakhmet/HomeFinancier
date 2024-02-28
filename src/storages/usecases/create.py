@@ -1,10 +1,9 @@
 import abc
-import re
-import uuid
 from dataclasses import dataclass
 
 from src.exceptions import ValidationError
 from src.storages.entities import Storage
+from src.storages.types import OwnerID, StorageLink
 
 
 class StorageCreateRepoInterface(abc.ABC):
@@ -13,23 +12,27 @@ class StorageCreateRepoInterface(abc.ABC):
         ...
 
     @abc.abstractmethod
-    async def exists(self, user_id: uuid.UUID, primary: bool) -> bool:
+    async def exists(self, owner_id: OwnerID) -> bool:
         ...
 
     @abc.abstractmethod
-    async def is_accessable(self, link: str) -> bool:
+    async def is_accessable(self, link: StorageLink) -> bool:
         ...
 
 
 @dataclass
 class StorageCreateInput:
-    link: str
-    expenses_table_link: str
-    income_table_link: str
-    user_id: uuid.UUID
+    link: StorageLink
+    expenses_table_link: StorageLink
+    income_table_link: StorageLink
+    owner_id: OwnerID
 
 
 class StorageCreateUseCase:
+    _STORAGE_LINK_IS_NOT_ACCESSABLE_ERROR_TEXT = "Storage link is not accessable"
+    _EXPENSES_TABLE_LINK_IS_NOT_ACCESSABLE_ERROR_TEXT = "Expenses table link is not accessable"
+    _INCOME_TABLE_LINK_IS_NOT_ACCESSABLE_ERROR_TEXT = "Income table link is not accessable"
+
     def __init__(
         self,
         storage_repo: StorageCreateRepoInterface,
@@ -37,56 +40,34 @@ class StorageCreateUseCase:
         self._storage_repo = storage_repo
 
     async def execute(self, input_: StorageCreateInput) -> Storage:
-        # Validating input
         await self._validate(input_=input_)
 
-        # Creating domain entity
-        storage = self._create_domain(input_=input_)
+        storage = Storage(
+            link=input_.link,
+            expenses_table_link=input_.expenses_table_link,
+            income_table_link=input_.income_table_link,
+            owner_id=input_.owner_id,
+        )
 
-        # Setting primary flag to Storage
-        # If User has no primary storage, then set primary flag to True
-        storage.primary = bool(not await self._storage_repo.exists(user_id=input_.user_id, primary=True))
+        if not await self._storage_repo.exists(owner_id=input_.owner_id):
+            storage.primary = True
 
-        # Saving Storage to repository
         await self._storage_repo.save(storage=storage)
 
         return storage
 
     async def _validate(self, input_: StorageCreateInput) -> None:
-        await self._validate_storage_link(link=input_.link)
-        await self._validate_expenses_table_link(link=input_.expenses_table_link)
-        await self._validate_income_table_link(link=input_.income_table_link)
+        if not await self._storage_repo.is_accessable(link=input_.link):
+            raise ValidationError(field="link", message=self._STORAGE_LINK_IS_NOT_ACCESSABLE_ERROR_TEXT)
 
-    async def _validate_storage_link(self, link: str) -> None:
-        if not self._is_correct_storage_link_format(link=link):
-            raise ValidationError(field="link", message="Invalid link to Storage")
+        if not await self._storage_repo.is_accessable(link=input_.expenses_table_link):
+            raise ValidationError(
+                field="expenses_table_link",
+                message=self._EXPENSES_TABLE_LINK_IS_NOT_ACCESSABLE_ERROR_TEXT,
+            )
 
-        if not await self._storage_repo.is_accessable(link=link):
-            raise ValidationError(field="link", message="Storage is not accessable")
-
-    async def _validate_expenses_table_link(self, link: str) -> None:
-        if not self._is_correct_storage_link_format(link=link):
-            raise ValidationError(field="expenses_table_link", message="Invalid link to Expenses table")
-
-        if not await self._storage_repo.is_accessable(link=link):
-            raise ValidationError(field="expenses_table_link", message="Expenses table is not accessable")
-
-    async def _validate_income_table_link(self, link: str) -> None:
-        if not self._is_correct_storage_link_format(link=link):
-            raise ValidationError(field="income_table_link", message="Invalid link to Income table")
-
-        if not await self._storage_repo.is_accessable(link=link):
-            raise ValidationError(field="income_table_link", message="Income table is not accessable")
-
-    def _is_correct_storage_link_format(self, link: str) -> bool:
-        # Check if link is Google Sheets link
-        pattern = r"https:\/\/docs\.google\.com\/spreadsheets\/d\/[a-zA-Z0-9_-]+"
-        return re.match(pattern=pattern, string=link) is not None
-
-    def _create_domain(self, input_: StorageCreateInput) -> Storage:
-        return Storage(
-            link=input_.link,
-            expenses_table_link=input_.expenses_table_link,
-            income_table_link=input_.income_table_link,
-            user_id=input_.user_id,
-        )
+        if not await self._storage_repo.is_accessable(link=input_.income_table_link):
+            raise ValidationError(
+                field="income_table_link",
+                message=self._INCOME_TABLE_LINK_IS_NOT_ACCESSABLE_ERROR_TEXT,
+            )
