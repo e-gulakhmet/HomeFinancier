@@ -4,6 +4,7 @@ from .create import (
     StorageCreateUseCase,
 )
 from .get import (
+    StorageGetFilter,
     StorageGetRepoInterface,
     StorageGetUseCase,
 )
@@ -14,4 +15,5 @@ __all__ = [
     "StorageCreateUseCase",
     "StorageGetRepoInterface",
     "StorageGetUseCase",
+    "StorageGetFilter",
 ]

@@ -1,13 +1,18 @@
+from datetime import datetime, timezone
+
 import pytest
 from pytest_mock import MockerFixture
 
-from src.expenses.usecases import (
+from src.expenses import (
+    Amount,
+    Category,
     ExpenseCreateInput,
     ExpenseCreateRepoInterface,
     ExpenseCreateUseCase,
+    OwnerID,
 )
-from src.storages.usecases import StorageGetUseCase
-from src.users.entities import User
+from src.storages import StorageGetUseCase
+from src.users import User
 
 
 @pytest.fixture()
@@ -21,8 +26,9 @@ def usecase(mocker: MockerFixture) -> ExpenseCreateUseCase:
 @pytest.fixture()
 def input_(user: User) -> ExpenseCreateInput:
     return ExpenseCreateInput(
-        user_id=user.id,
-        amount=100,
-        category="Monthly",
-        subcategory="Rent",
+        owner_id=OwnerID(user.id),
+        amount=Amount(100),
+        category=Category("Rent"),
+        subcategory="Cleaning",
+        created_at=datetime.now(tz=timezone.utc),
     )
