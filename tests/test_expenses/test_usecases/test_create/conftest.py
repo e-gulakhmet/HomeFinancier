@@ -11,14 +11,14 @@ from src.expenses import (
     ExpenseCreateUseCase,
     OwnerID,
 )
-from src.storages import StorageGetUseCase
+from src.storages import StorageGetQueryProtocol
 from src.users import User
 
 
 @pytest.fixture()
 def usecase(mocker: MockerFixture) -> ExpenseCreateUseCase:
     return ExpenseCreateUseCase(
-        storage_get_usecase=mocker.Mock(spec=StorageGetUseCase),
+        storage_get_query=mocker.Mock(spec=StorageGetQueryProtocol),
         expense_repo=mocker.Mock(spec=ExpenseCreateRepoInterface),
     )
 
