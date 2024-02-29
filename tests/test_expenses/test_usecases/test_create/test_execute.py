@@ -13,7 +13,7 @@ def necessary_mocks(
     mocker: MockerFixture,
     storage: Storage,
 ) -> None:
-    mocker.patch.object(usecase._storage_get_usecase, "execute", return_value=storage)
+    mocker.patch.object(usecase._storage_get_query, "query", return_value=storage)
 
 
 async def test_error_if_owner_has_no_primary_storage(
@@ -21,7 +21,7 @@ async def test_error_if_owner_has_no_primary_storage(
     input_: ExpenseCreateInput,
     mocker: MockerFixture,
 ) -> None:
-    mocker.patch.object(usecase._storage_get_usecase, "execute", return_value=None)
+    mocker.patch.object(usecase._storage_get_query, "query", return_value=None)
 
     with pytest.raises(UserShouldHavePrimaryStorageError):
         await usecase.execute(input_)
@@ -35,7 +35,7 @@ async def test_expense_is_saved_to_repository(
     spy = mocker.spy(usecase._expense_repo, "save")
     expected_expense = Expense(
         owner_id=input_.owner_id,
-        expenses_storage_link=usecase._storage_get_usecase.execute.return_value.expenses_table_link,  # type: ignore
+        expenses_storage_link=usecase._storage_get_query.query.return_value.expenses_table_link,  # type: ignore
         amount=input_.amount,
         category=input_.category,
         subcategory=input_.subcategory,
