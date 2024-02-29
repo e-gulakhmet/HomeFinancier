@@ -3,14 +3,7 @@ from datetime import datetime, timezone
 import pytest
 from pytest_mock import MockerFixture
 
-from src.expenses import (
-    Amount,
-    Category,
-    ExpenseCreateInput,
-    ExpenseCreateRepoInterface,
-    ExpenseCreateUseCase,
-    OwnerID,
-)
+from src.expenses import Amount, Category, ExpenseCreateInput, ExpenseCreateUseCase, ExpensesRepositoryProtocol, OwnerID
 from src.storages import StorageGetQueryProtocol
 from src.users import User
 
@@ -19,7 +12,7 @@ from src.users import User
 def usecase(mocker: MockerFixture) -> ExpenseCreateUseCase:
     return ExpenseCreateUseCase(
         storage_get_query=mocker.Mock(spec=StorageGetQueryProtocol),
-        expense_repo=mocker.Mock(spec=ExpenseCreateRepoInterface),
+        expense_repo=mocker.Mock(spec=ExpensesRepositoryProtocol),
     )
 
 

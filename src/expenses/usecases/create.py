@@ -1,18 +1,12 @@
-import abc
 from dataclasses import dataclass, field
 from datetime import datetime
 
 from src.expenses.entities import Expense
 from src.expenses.exceptions import UserShouldHavePrimaryStorageError
+from src.expenses.repositories import ExpensesRepositoryProtocol
 from src.expenses.types import Amount, Category, ExpensesStorageLink, OwnerID
 from src.storages import OwnerID as StorageOwnerID
 from src.storages import StorageGetQueryProtocol
-
-
-class ExpenseCreateRepoInterface(abc.ABC):
-    @abc.abstractmethod
-    async def save(self, expense: Expense) -> None:
-        ...
 
 
 @dataclass
@@ -27,7 +21,7 @@ class ExpenseCreateInput:
 class ExpenseCreateUseCase:
     def __init__(
         self,
-        expense_repo: ExpenseCreateRepoInterface,
+        expense_repo: ExpensesRepositoryProtocol,
         storage_get_query: StorageGetQueryProtocol,
     ) -> None:
         self._expense_repo = expense_repo
