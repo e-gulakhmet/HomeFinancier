@@ -1,23 +1,9 @@
-import abc
 from dataclasses import dataclass
 
 from src.exceptions import ValidationError
 from src.storages.entities import Storage
+from src.storages.repositories import StoragesRepositoryProtocol
 from src.storages.types import OwnerID, StorageLink
-
-
-class StorageCreateRepoInterface(abc.ABC):
-    @abc.abstractmethod
-    async def save(self, storage: Storage) -> None:
-        ...
-
-    @abc.abstractmethod
-    async def exists(self, owner_id: OwnerID) -> bool:
-        ...
-
-    @abc.abstractmethod
-    async def is_accessable(self, link: StorageLink) -> bool:
-        ...
 
 
 @dataclass
@@ -35,7 +21,7 @@ class StorageCreateUseCase:
 
     def __init__(
         self,
-        storage_repo: StorageCreateRepoInterface,
+        storage_repo: StoragesRepositoryProtocol,
     ) -> None:
         self._storage_repo = storage_repo
 

@@ -1,9 +1,9 @@
 from .entities import Storage
 from .queries import StorageGetQueryProtocol
+from .repositories import StoragesRepositoryProtocol
 from .types import OwnerID, StorageID, StorageLink
 from .usecases import (
     StorageCreateInput,
-    StorageCreateRepoInterface,
     StorageCreateUseCase,
 )
 
@@ -12,12 +12,13 @@ __all__ = [
     "Storage",
     # queries
     "StorageGetQueryProtocol",
+    # repositories
+    "StoragesRepositoryProtocol",
     # types
     "OwnerID",
     "StorageID",
     "StorageLink",
     # usecases
     "StorageCreateInput",
-    "StorageCreateRepoInterface",
     "StorageCreateUseCase",
 ]

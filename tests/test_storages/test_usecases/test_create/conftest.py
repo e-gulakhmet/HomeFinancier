@@ -6,16 +6,16 @@ from pytest_mock import MockerFixture
 from src.storages import (
     OwnerID,
     StorageCreateInput,
-    StorageCreateRepoInterface,
     StorageCreateUseCase,
     StorageLink,
+    StoragesRepositoryProtocol,
 )
 
 
 @pytest.fixture()
 def usecase(mocker: MockerFixture) -> StorageCreateUseCase:
     return StorageCreateUseCase(
-        storage_repo=mocker.Mock(spec=StorageCreateRepoInterface),
+        storage_repo=mocker.Mock(spec=StoragesRepositoryProtocol),
     )
 
 
