@@ -36,6 +36,7 @@ def storage() -> Storage:
 @pytest.fixture()
 def expense() -> Expense:
     return Expense(
+        created_at=datetime.now(tz=timezone.utc),
         owner_id=ExpenseOwnerID(uuid.uuid4()),
         expenses_storage_link=ExpensesStorageLink("https://www.example.com/expenses"),
         amount=Amount(100),
