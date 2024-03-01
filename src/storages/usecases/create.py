@@ -6,7 +6,7 @@ from src.storages.repositories import StoragesRepositoryProtocol
 from src.storages.types import OwnerID, StorageLink
 
 
-@dataclass
+@dataclass(frozen=True)
 class StorageCreateInput:
     link: StorageLink
     expenses_table_link: StorageLink
