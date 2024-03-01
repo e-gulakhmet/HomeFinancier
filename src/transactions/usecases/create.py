@@ -22,10 +22,10 @@ class TransactionCreateInput:
 class TransactionCreateUseCase:
     def __init__(
         self,
-        expense_repo: TransactionsRepositoryProtocol,
+        transactions_repo: TransactionsRepositoryProtocol,
         storage_get_query: StorageGetQueryProtocol,
     ) -> None:
-        self._transaction_repo = expense_repo
+        self._transaction_repo = transactions_repo
         self._storage_get_query = storage_get_query
 
     async def execute(self, input_: TransactionCreateInput) -> Transaction:

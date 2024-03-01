@@ -19,6 +19,5 @@ __all__ = [
     "TransactionType",
     # usecases
     "TransactionCreateInput",
-    "ExpenseCreateRepoInterface",
     "TransactionCreateUseCase",
 ]

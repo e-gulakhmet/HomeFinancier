@@ -20,7 +20,7 @@ from src.users import User
 def usecase(mocker: MockerFixture) -> TransactionCreateUseCase:
     return TransactionCreateUseCase(
         storage_get_query=mocker.Mock(spec=StorageGetQueryProtocol),
-        expense_repo=mocker.Mock(spec=TransactionsRepositoryProtocol),
+        transactions_repo=mocker.Mock(spec=TransactionsRepositoryProtocol),
     )
 
 

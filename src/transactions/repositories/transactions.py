@@ -4,5 +4,5 @@ from src.transactions.entities import Transaction
 
 
 class TransactionsRepositoryProtocol(Protocol):
-    async def save(self, expense: Transaction) -> None:
+    async def save(self, transaction: Transaction) -> None:
         ...

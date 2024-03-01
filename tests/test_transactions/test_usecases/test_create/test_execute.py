@@ -38,7 +38,7 @@ async def test_transaction_is_saved_to_repository(
     mocker: MockerFixture,
 ) -> None:
     spy = mocker.spy(usecase._transaction_repo, "save")
-    expected_expense = Transaction(
+    expected_transaction = Transaction(
         owner_id=input_.owner_id,
         storage_link=usecase._storage_get_query.query.return_value.expenses_table_link,  # type: ignore
         type_=input_.type_,
@@ -50,7 +50,7 @@ async def test_transaction_is_saved_to_repository(
 
     await usecase.execute(input_)
 
-    spy.assert_called_once_with(expected_expense)
+    spy.assert_called_once_with(expected_transaction)
 
 
 async def test_transaction_entity_is_returned(
