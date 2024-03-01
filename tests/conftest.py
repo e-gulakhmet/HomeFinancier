@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime, timezone
 
 import pytest
 
@@ -6,12 +7,15 @@ from src.expenses import Amount, Category, Expense, ExpensesStorageLink
 from src.expenses import OwnerID as ExpenseOwnerID
 from src.storages import OwnerID as StorageOwnerID
 from src.storages import Storage, StorageLink
-from src.users import Email, HashedPassword, User
+from src.users import Email, HashedPassword, User, UserID
 
 
 @pytest.fixture()
 def user() -> User:
     return User(
+        id=UserID(uuid.uuid4()),
+        created_at=datetime.now(tz=timezone.utc),
+        updated_at=datetime.now(tz=timezone.utc),
         email=Email("example@email.com"),
         password=HashedPassword(b"some_password"),
     )
