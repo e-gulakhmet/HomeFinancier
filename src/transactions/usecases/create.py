@@ -1,16 +1,16 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from src.expenses.entities import Expense
-from src.expenses.exceptions import UserShouldHavePrimaryStorageError
-from src.expenses.repositories import ExpensesRepositoryProtocol
-from src.expenses.types import Amount, Category, ExpensesStorageLink, OwnerID
 from src.storages import OwnerID as StorageOwnerID
 from src.storages import StorageGetQueryProtocol
+from src.transactions.entities import Transaction
+from src.transactions.exceptions import UserShouldHavePrimaryStorageError
+from src.transactions.repositories import TransactionsRepositoryProtocol
+from src.transactions.types import Amount, Category, OwnerID, StorageLink
 
 
 @dataclass(frozen=True)
-class ExpenseCreateInput:
+class TransactionCreateInput:
     owner_id: OwnerID
     amount: Amount
     category: Category
@@ -18,16 +18,16 @@ class ExpenseCreateInput:
     created_at: datetime = field(default_factory=datetime.now)
 
 
-class ExpenseCreateUseCase:
+class TransactionCreateUseCase:
     def __init__(
         self,
-        expense_repo: ExpensesRepositoryProtocol,
+        expense_repo: TransactionsRepositoryProtocol,
         storage_get_query: StorageGetQueryProtocol,
     ) -> None:
-        self._expense_repo = expense_repo
+        self._transaction_repo = expense_repo
         self._storage_get_query = storage_get_query
 
-    async def execute(self, input_: ExpenseCreateInput) -> Expense:
+    async def execute(self, input_: TransactionCreateInput) -> Transaction:
         # Getting User's Primary Storage
         storage = await self._storage_get_query.query(
             filter_={"owner_id": StorageOwnerID(input_.owner_id), "primary": True},
@@ -35,15 +35,15 @@ class ExpenseCreateUseCase:
         if not storage:
             raise UserShouldHavePrimaryStorageError
 
-        expense = Expense(
+        transaction = Transaction(
             owner_id=input_.owner_id,
-            expenses_storage_link=ExpensesStorageLink(storage.expenses_table_link),
+            storage_link=StorageLink(storage.expenses_table_link),
             amount=input_.amount,
             category=input_.category,
             subcategory=input_.subcategory,
             created_at=input_.created_at,
         )
 
-        await self._expense_repo.save(expense)
+        await self._transaction_repo.save(transaction)
 
-        return expense
+        return transaction

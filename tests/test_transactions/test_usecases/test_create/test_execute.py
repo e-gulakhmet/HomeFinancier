@@ -3,13 +3,18 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from src.expenses import Expense, ExpenseCreateInput, ExpenseCreateUseCase, UserShouldHavePrimaryStorageError
 from src.storages import Storage
+from src.transactions import (
+    Transaction,
+    TransactionCreateInput,
+    TransactionCreateUseCase,
+    UserShouldHavePrimaryStorageError,
+)
 
 
 @pytest.fixture(autouse=True)
 def necessary_mocks(
-    usecase: ExpenseCreateUseCase,
+    usecase: TransactionCreateUseCase,
     mocker: MockerFixture,
     storage: Storage,
 ) -> None:
@@ -17,8 +22,8 @@ def necessary_mocks(
 
 
 async def test_error_if_owner_has_no_primary_storage(
-    usecase: ExpenseCreateUseCase,
-    input_: ExpenseCreateInput,
+    usecase: TransactionCreateUseCase,
+    input_: TransactionCreateInput,
     mocker: MockerFixture,
 ) -> None:
     mocker.patch.object(usecase._storage_get_query, "query", return_value=None)
@@ -27,15 +32,15 @@ async def test_error_if_owner_has_no_primary_storage(
         await usecase.execute(input_)
 
 
-async def test_expense_is_saved_to_repository(
-    usecase: ExpenseCreateUseCase,
-    input_: ExpenseCreateInput,
+async def test_transaction_is_saved_to_repository(
+    usecase: TransactionCreateUseCase,
+    input_: TransactionCreateInput,
     mocker: MockerFixture,
 ) -> None:
-    spy = mocker.spy(usecase._expense_repo, "save")
-    expected_expense = Expense(
+    spy = mocker.spy(usecase._transaction_repo, "save")
+    expected_expense = Transaction(
         owner_id=input_.owner_id,
-        expenses_storage_link=usecase._storage_get_query.query.return_value.expenses_table_link,  # type: ignore
+        storage_link=usecase._storage_get_query.query.return_value.expenses_table_link,  # type: ignore
         amount=input_.amount,
         category=input_.category,
         subcategory=input_.subcategory,
@@ -47,7 +52,10 @@ async def test_expense_is_saved_to_repository(
     spy.assert_called_once_with(expected_expense)
 
 
-async def test_expense_entity_is_returned(usecase: ExpenseCreateUseCase, input_: ExpenseCreateInput) -> None:
+async def test_transaction_entity_is_returned(
+    usecase: TransactionCreateUseCase,
+    input_: TransactionCreateInput,
+) -> None:
     storage = await usecase.execute(input_)
 
-    assert isinstance(storage, Expense)
+    assert isinstance(storage, Transaction)

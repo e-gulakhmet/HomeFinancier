@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from src.expenses.types import Amount, Category, ExpensesStorageLink, OwnerID
+from src.transactions.types import Amount, Category, OwnerID, StorageLink
 
 
 @dataclass
-class Expense:
+class Transaction:
     owner_id: OwnerID
-    expenses_storage_link: ExpensesStorageLink
+    storage_link: StorageLink
     amount: Amount
     category: Category
     subcategory: str

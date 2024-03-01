@@ -5,13 +5,13 @@ from uuid import UUID
 OwnerID = NewType("OwnerID", UUID)
 
 
-class ExpensesStorageLink(str):
+class StorageLink(str):
     __slots__ = ()
 
     _GOOGLE_SHEETS_LINK_PATTERN = r"https:\/\/docs\.google\.com\/spreadsheets\/d\/[a-zA-Z0-9_-]+"
     _INVALID_LINK_ERROR_TEXT = "Expenses Storage link is invalid"
 
-    def __new__(cls, value: str) -> "ExpensesStorageLink":
+    def __new__(cls, value: str) -> "StorageLink":
         if not re.match(pattern=cls._GOOGLE_SHEETS_LINK_PATTERN, string=value):
             raise ValueError(cls._INVALID_LINK_ERROR_TEXT)
         return super().__new__(cls, value)

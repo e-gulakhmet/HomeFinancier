@@ -3,22 +3,29 @@ from datetime import datetime, timezone
 import pytest
 from pytest_mock import MockerFixture
 
-from src.expenses import Amount, Category, ExpenseCreateInput, ExpenseCreateUseCase, ExpensesRepositoryProtocol, OwnerID
 from src.storages import StorageGetQueryProtocol
+from src.transactions import (
+    Amount,
+    Category,
+    OwnerID,
+    TransactionCreateInput,
+    TransactionCreateUseCase,
+    TransactionsRepositoryProtocol,
+)
 from src.users import User
 
 
 @pytest.fixture()
-def usecase(mocker: MockerFixture) -> ExpenseCreateUseCase:
-    return ExpenseCreateUseCase(
+def usecase(mocker: MockerFixture) -> TransactionCreateUseCase:
+    return TransactionCreateUseCase(
         storage_get_query=mocker.Mock(spec=StorageGetQueryProtocol),
-        expense_repo=mocker.Mock(spec=ExpensesRepositoryProtocol),
+        expense_repo=mocker.Mock(spec=TransactionsRepositoryProtocol),
     )
 
 
 @pytest.fixture()
-def input_(user: User) -> ExpenseCreateInput:
-    return ExpenseCreateInput(
+def input_(user: User) -> TransactionCreateInput:
+    return TransactionCreateInput(
         owner_id=OwnerID(user.id),
         amount=Amount(100),
         category=Category("Rent"),
