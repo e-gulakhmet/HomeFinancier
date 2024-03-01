@@ -6,12 +6,13 @@ from src.storages import StorageGetQueryProtocol
 from src.transactions.entities import Transaction
 from src.transactions.exceptions import UserShouldHavePrimaryStorageError
 from src.transactions.repositories import TransactionsRepositoryProtocol
-from src.transactions.types import Amount, Category, OwnerID, StorageLink
+from src.transactions.types import Amount, Category, OwnerID, StorageLink, TransactionType
 
 
 @dataclass(frozen=True)
 class TransactionCreateInput:
     owner_id: OwnerID
+    type_: TransactionType
     amount: Amount
     category: Category
     subcategory: str = ""
@@ -37,6 +38,7 @@ class TransactionCreateUseCase:
 
         transaction = Transaction(
             owner_id=input_.owner_id,
+            type_=input_.type_,
             storage_link=StorageLink(storage.expenses_table_link),
             amount=input_.amount,
             category=input_.category,
