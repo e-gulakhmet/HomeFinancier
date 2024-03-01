@@ -1,4 +1,5 @@
 import re
+from enum import IntEnum, auto
 from typing import NewType
 from uuid import UUID
 
@@ -39,3 +40,8 @@ class Category(str):
         if not cls._CATEGORY_MIN_LENGTH <= len(value) <= cls._CATEGORY_MAX_LENGTH:
             raise ValueError(cls._CATEGORY_LENGTH_ERROR_MESSAGE)
         return super().__new__(cls, value)
+
+
+class TransactionType(IntEnum):
+    INCOME = auto()
+    EXPENSE = auto()
