@@ -1,21 +1,14 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from src.users import (
-    Email,
-    Password,
-    UserCreateHashingProviderInterface,
-    UserCreateInput,
-    UserCreateRepoInterface,
-    UserCreateUseCase,
-)
+from src.users import Email, HashingPortProtocol, Password, UserCreateInput, UserCreateUseCase, UsersRepositoryProtocol
 
 
 @pytest.fixture()
 def usecase(mocker: MockerFixture) -> UserCreateUseCase:
     return UserCreateUseCase(
-        user_repo=mocker.Mock(spec=UserCreateRepoInterface),
-        hashing_provider=mocker.Mock(spec=UserCreateHashingProviderInterface),
+        user_repo=mocker.Mock(spec=UsersRepositoryProtocol),
+        hashing_provider=mocker.Mock(spec=HashingPortProtocol),
     )
 
 

@@ -1,3 +1,6 @@
-from .create import ExpenseCreateInput, ExpenseCreateRepoInterface, ExpenseCreateUseCase
+from .create import ExpenseCreateInput, ExpenseCreateUseCase
 
-__all__ = ["ExpenseCreateUseCase", "ExpenseCreateInput", "ExpenseCreateRepoInterface"]
+__all__ = [
+    "ExpenseCreateUseCase",
+    "ExpenseCreateInput",
+]
