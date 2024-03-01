@@ -7,7 +7,7 @@ from src.users.repositories import UsersRepositoryProtocol
 from src.users.types import Email, Password
 
 
-@dataclass
+@dataclass(frozen=True)
 class UserCreateInput:
     email: Email
     password: Password

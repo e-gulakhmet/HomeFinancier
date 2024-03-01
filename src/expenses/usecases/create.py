@@ -9,7 +9,7 @@ from src.storages import OwnerID as StorageOwnerID
 from src.storages import StorageGetQueryProtocol
 
 
-@dataclass
+@dataclass(frozen=True)
 class ExpenseCreateInput:
     owner_id: OwnerID
     amount: Amount
