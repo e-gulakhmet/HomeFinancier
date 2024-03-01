@@ -11,6 +11,7 @@ from src.transactions import (
     TransactionCreateInput,
     TransactionCreateUseCase,
     TransactionsRepositoryProtocol,
+    TransactionType,
 )
 from src.users import User
 
@@ -27,6 +28,7 @@ def usecase(mocker: MockerFixture) -> TransactionCreateUseCase:
 def input_(user: User) -> TransactionCreateInput:
     return TransactionCreateInput(
         owner_id=OwnerID(user.id),
+        type_=TransactionType.EXPENSE,
         amount=Amount(100),
         category=Category("Rent"),
         subcategory="Cleaning",

@@ -41,6 +41,7 @@ async def test_transaction_is_saved_to_repository(
     expected_expense = Transaction(
         owner_id=input_.owner_id,
         storage_link=usecase._storage_get_query.query.return_value.expenses_table_link,  # type: ignore
+        type_=input_.type_,
         amount=input_.amount,
         category=input_.category,
         subcategory=input_.subcategory,

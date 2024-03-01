@@ -5,7 +5,7 @@ import pytest
 
 from src.storages import OwnerID as StorageOwnerID
 from src.storages import Storage, StorageID, StorageLink
-from src.transactions import Amount, Category, Transaction
+from src.transactions import Amount, Category, Transaction, TransactionType
 from src.transactions import OwnerID as ExpenseOwnerID
 from src.transactions import StorageLink as TransactionsStorageLink
 from src.users import Email, HashedPassword, User, UserID
@@ -40,6 +40,7 @@ def expense() -> Transaction:
         created_at=datetime.now(tz=timezone.utc),
         owner_id=ExpenseOwnerID(uuid.uuid4()),
         storage_link=TransactionsStorageLink("https://www.example.com/expenses"),
+        type_=TransactionType.EXPENSE,
         amount=Amount(100),
         category=Category("Rent"),
         subcategory="Cleaning",
