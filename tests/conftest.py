@@ -6,7 +6,7 @@ import pytest
 from src.expenses import Amount, Category, Expense, ExpensesStorageLink
 from src.expenses import OwnerID as ExpenseOwnerID
 from src.storages import OwnerID as StorageOwnerID
-from src.storages import Storage, StorageLink
+from src.storages import Storage, StorageID, StorageLink
 from src.users import Email, HashedPassword, User, UserID
 
 
@@ -24,6 +24,8 @@ def user() -> User:
 @pytest.fixture()
 def storage() -> Storage:
     return Storage(
+        id=StorageID(uuid.uuid4()),
+        created_at=datetime.now(tz=timezone.utc),
         link=StorageLink("https://docs.google.com/spreadsheets/d/1/edit"),
         expenses_table_link=StorageLink("https://docs.google.com/spreadsheets/d/1/edit"),
         income_table_link=StorageLink("https://docs.google.com/spreadsheets/d/1/edit"),
