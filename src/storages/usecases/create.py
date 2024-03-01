@@ -1,9 +1,11 @@
+import uuid
 from dataclasses import dataclass
+from datetime import datetime, timezone
 
 from src.exceptions import ValidationError
 from src.storages.entities import Storage
 from src.storages.repositories import StoragesRepositoryProtocol
-from src.storages.types import OwnerID, StorageLink
+from src.storages.types import OwnerID, StorageID, StorageLink
 
 
 @dataclass(frozen=True)
@@ -29,6 +31,8 @@ class StorageCreateUseCase:
         await self._validate(input_=input_)
 
         storage = Storage(
+            id=StorageID(uuid.uuid4()),
+            created_at=datetime.now(tz=timezone.utc),
             link=input_.link,
             expenses_table_link=input_.expenses_table_link,
             income_table_link=input_.income_table_link,

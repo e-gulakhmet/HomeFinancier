@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
 
 from src.expenses.types import Amount, Category, ExpensesStorageLink, OwnerID
@@ -10,5 +10,5 @@ class Expense:
     expenses_storage_link: ExpensesStorageLink
     amount: Amount
     category: Category
-    subcategory: str = ""
-    created_at: datetime = field(default_factory=datetime.now)
+    subcategory: str
+    created_at: datetime

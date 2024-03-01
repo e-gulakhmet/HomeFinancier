@@ -1,5 +1,4 @@
-import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
 
 from src.users.types import Email, HashedPassword, UserID
@@ -7,8 +6,8 @@ from src.users.types import Email, HashedPassword, UserID
 
 @dataclass
 class User:
+    id: UserID
+    created_at: datetime
+    updated_at: datetime
     email: Email
     password: HashedPassword
-    id: UserID = field(default_factory=lambda: UserID(uuid.uuid4()))
-    created_at: datetime = field(default_factory=datetime.now)
-    updated_at: datetime = field(default_factory=datetime.now)
