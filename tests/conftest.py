@@ -3,10 +3,11 @@ from datetime import datetime, timezone
 
 import pytest
 
-from src.expenses import Amount, Category, Expense, ExpensesStorageLink
-from src.expenses import OwnerID as ExpenseOwnerID
 from src.storages import OwnerID as StorageOwnerID
 from src.storages import Storage, StorageID, StorageLink
+from src.transactions import Amount, Category, Transaction, TransactionType
+from src.transactions import OwnerID as TransactionOwnerID
+from src.transactions import StorageLink as TransactionsStorageLink
 from src.users import Email, HashedPassword, User, UserID
 
 
@@ -34,11 +35,12 @@ def storage() -> Storage:
 
 
 @pytest.fixture()
-def expense() -> Expense:
-    return Expense(
+def transaction() -> Transaction:
+    return Transaction(
         created_at=datetime.now(tz=timezone.utc),
-        owner_id=ExpenseOwnerID(uuid.uuid4()),
-        expenses_storage_link=ExpensesStorageLink("https://www.example.com/expenses"),
+        owner_id=TransactionOwnerID(uuid.uuid4()),
+        storage_link=TransactionsStorageLink("https://www.example.com/expenses"),
+        type_=TransactionType.EXPENSE,
         amount=Amount(100),
         category=Category("Rent"),
         subcategory="Cleaning",

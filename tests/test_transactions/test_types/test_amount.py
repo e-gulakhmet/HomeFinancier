@@ -1,6 +1,6 @@
 import pytest
 
-from src.expenses import Amount
+from src.transactions import Amount
 
 
 @pytest.mark.parametrize(
