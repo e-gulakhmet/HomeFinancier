@@ -44,7 +44,6 @@ async def test_transaction_is_saved_to_repository(
         type_=input_.type_,
         amount=input_.amount,
         category=input_.category,
-        subcategory=input_.subcategory,
         created_at=input_.created_at,
     )
 

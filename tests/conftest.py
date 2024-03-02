@@ -43,5 +43,4 @@ def transaction() -> Transaction:
         type_=TransactionType.EXPENSE,
         amount=Amount(100),
         category=Category("Rent"),
-        subcategory="Cleaning",
     )

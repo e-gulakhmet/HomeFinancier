@@ -31,6 +31,5 @@ def input_(user: User) -> TransactionCreateInput:
         type_=TransactionType.EXPENSE,
         amount=Amount(100),
         category=Category("Rent"),
-        subcategory="Cleaning",
         created_at=datetime.now(tz=timezone.utc),
     )
