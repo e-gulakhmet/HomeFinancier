@@ -12,4 +12,3 @@ class Storage:
     expenses_table_link: StorageLink
     income_table_link: StorageLink
     owner_id: OwnerID
-    primary: bool = False

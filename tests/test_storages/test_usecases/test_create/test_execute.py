@@ -10,8 +10,19 @@ from src.storages.usecases import StorageCreateInput, StorageCreateUseCase
 
 @pytest.fixture(autouse=True)
 def necessary_mocks(usecase: StorageCreateUseCase, mocker: MockerFixture) -> None:
-    mocker.patch.object(usecase._storage_repo, "exists", return_value=False)
+    mocker.patch.object(usecase._storage_repo, "exists", side_effect=[False, False, False])
     mocker.patch.object(usecase._storage_repo, "is_accessable", return_value=True)
+
+
+async def test_error_if_user_already_has_storage(
+    usecase: StorageCreateUseCase,
+    input_: StorageCreateInput,
+    mocker: MockerFixture,
+) -> None:
+    mocker.patch.object(usecase._storage_repo, "exists", return_value=True)
+
+    with pytest.raises(ValidationError, match=usecase._USER_ALREADY_HAS_STORAGE_ERROR_TEXT):
+        await usecase.execute(input_)
 
 
 async def test_error_if_storage_link_is_not_accessable(
@@ -47,21 +58,11 @@ async def test_error_if_income_table_link_is_not_accessable(
         await usecase.execute(input_)
 
 
-@pytest.mark.parametrize(
-    ("user_has_storages", "primary_flag"),
-    [
-        (True, False),
-        (False, True),
-    ],
-)
 async def test_storage_is_saved_to_repository(
     usecase: StorageCreateUseCase,
     input_: StorageCreateInput,
     mocker: MockerFixture,
-    user_has_storages: bool,
-    primary_flag: bool,
 ) -> None:
-    mocker.patch.object(usecase._storage_repo, "exists", return_value=user_has_storages)
     spy = mocker.spy(usecase._storage_repo, "save")
 
     await usecase.execute(input_)
@@ -69,7 +70,6 @@ async def test_storage_is_saved_to_repository(
     storage = Storage(
         id=mocker.ANY,
         created_at=mocker.ANY,
-        primary=primary_flag,
         link=input_.link,
         expenses_table_link=input_.expenses_table_link,
         income_table_link=input_.income_table_link,
