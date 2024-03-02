@@ -11,5 +11,4 @@ class Transaction:
     type_: TransactionType
     amount: Amount
     category: Category
-    subcategory: str
     created_at: datetime

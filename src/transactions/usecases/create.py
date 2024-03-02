@@ -15,7 +15,6 @@ class TransactionCreateInput:
     type_: TransactionType
     amount: Amount
     category: Category
-    subcategory: str = ""
     created_at: datetime = field(default_factory=datetime.now)
 
 
@@ -42,7 +41,6 @@ class TransactionCreateUseCase:
             storage_link=StorageLink(storage.expenses_table_link),
             amount=input_.amount,
             category=input_.category,
-            subcategory=input_.subcategory,
             created_at=input_.created_at,
         )
 
