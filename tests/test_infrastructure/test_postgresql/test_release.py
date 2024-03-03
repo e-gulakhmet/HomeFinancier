@@ -3,10 +3,10 @@ import pytest
 from pytest_mock import MockerFixture
 
 from src.infrastructure.databases.postgresql import (
+    Connection,
     PostgreSQL,
     PostgreSQLIsNotConnectedError,
 )
-from src.infrastructure.databases.postgresql.core import Connection
 
 
 async def test_error_if_pool_does_not_exists(postgresql: PostgreSQL, mocker: MockerFixture) -> None:

@@ -1,4 +1,4 @@
-from .core import (
+from .base import (
     Database,
     DatabaseEngineInterface,
     Session,
@@ -11,11 +11,13 @@ from .exceptions import (
 )
 
 __all__ = (
+    # base
     "Database",
     "DatabaseEngineInterface",
+    "Session",
+    # exceptions
     "DatabaseIsAlreadyConnectedError",
     "DatabaseIsNotConnectedError",
     "DatabaseSessionIsNotInitializedError",
     "DatabaseSessionIsAlreadyInitializedError",
-    "Session",
 )
