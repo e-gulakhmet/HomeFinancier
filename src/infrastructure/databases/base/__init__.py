@@ -1,23 +1,23 @@
 from .base import (
+    Connection,
     Database,
     DatabaseEngineInterface,
-    Session,
 )
 from .exceptions import (
+    DatabaseConnectionIsAlreadyInitializedError,
+    DatabaseConnectionIsNotInitializedError,
     DatabaseIsAlreadyConnectedError,
     DatabaseIsNotConnectedError,
-    DatabaseSessionIsAlreadyInitializedError,
-    DatabaseSessionIsNotInitializedError,
 )
 
 __all__ = (
     # base
     "Database",
     "DatabaseEngineInterface",
-    "Session",
+    "Connection",
     # exceptions
     "DatabaseIsAlreadyConnectedError",
     "DatabaseIsNotConnectedError",
-    "DatabaseSessionIsNotInitializedError",
-    "DatabaseSessionIsAlreadyInitializedError",
+    "DatabaseConnectionIsNotInitializedError",
+    "DatabaseConnectionIsAlreadyInitializedError",
 )

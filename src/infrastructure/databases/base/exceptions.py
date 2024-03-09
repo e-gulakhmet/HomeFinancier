@@ -8,13 +8,13 @@ class DatabaseIsNotConnectedError(Exception):
         super().__init__("Database is not connected, use `connect` context manager to connect to database")
 
 
-class DatabaseSessionIsAlreadyInitializedError(Exception):
+class DatabaseConnectionIsAlreadyInitializedError(Exception):
     def __init__(self) -> None:
-        super().__init__("Database session is already initialized")
+        super().__init__("Database connection is already initialized")
 
 
-class DatabaseSessionIsNotInitializedError(Exception):
+class DatabaseConnectionIsNotInitializedError(Exception):
     def __init__(self) -> None:
         super().__init__(
-            "Database session is not initialized, use `session_context` context manager to initialize session",
+            "Database connection is not initialized, use `pool_context` context manager to initialize connection",
         )
