@@ -11,3 +11,10 @@
 
 # Python
 __pycache__
+
+# gpt-engineer
+.gpteng
+prompt
+
+# vim-dadbod
+.sql
