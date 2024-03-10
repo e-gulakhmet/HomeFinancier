@@ -3,7 +3,7 @@ from typing import AsyncGenerator
 import asyncpg
 import pytest
 
-from src.infrastructure.databases.postgresql import Connection, PostgreSQL
+from src.infrastructure.databases.postgresql import PostgreSQL, PostgreSQLConnection
 
 
 @pytest.fixture(scope="session")
@@ -29,7 +29,7 @@ async def connected_postgresql(postgresql: PostgreSQL) -> AsyncGenerator[Postgre
 
 
 @pytest.fixture()
-async def postgresql_pool_connection(connected_postgresql: PostgreSQL) -> AsyncGenerator[Connection, None]:
+async def postgresql_pool_connection(connected_postgresql: PostgreSQL) -> AsyncGenerator[PostgreSQLConnection, None]:
     connection = await connected_postgresql.acquire()
     try:
         yield connection

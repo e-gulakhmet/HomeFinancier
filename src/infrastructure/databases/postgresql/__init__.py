@@ -1,10 +1,10 @@
 from .exceptions import PostgreSQLIsNotConnectedError
-from .postgresql import Connection, PostgreSQL
+from .postgresql import PostgreSQL, PostgreSQLConnection
 
 __all__ = (
     # exceptions
     "PostgreSQLIsNotConnectedError",
     # postgresql
     "PostgreSQL",
-    "Connection",
+    "PostgreSQLConnection",
 )

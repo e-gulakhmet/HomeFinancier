@@ -32,6 +32,7 @@ jobs:
 
   type-check:
     name: Type Checking
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -67,6 +68,7 @@ jobs:
 
   test:
     name: Testing
+    needs: type-check
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -110,5 +112,14 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
 
+      - name: Install `just`
+        uses: extractions/setup-just@v2
+
+      - name: Install `dbmate`
+        run: |
+          sudo curl -fsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64
+          sudo chmod +x /usr/local/bin/dbmate
+          dbmate --help
+
       - name: Run tests
-        run: poetry run pytest
+        run: poetry run just up-test-env test-all

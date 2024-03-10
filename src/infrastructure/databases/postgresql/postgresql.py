@@ -10,12 +10,12 @@ from .exceptions import PostgreSQLIsNotConnectedError
 
 # Prevent runtime error: https://mypy.readthedocs.io/en/stable/runtime_troubles.html?highlight=subscriptable#using-classes-that-are-generic-in-stubs-but-not-at-runtime
 if TYPE_CHECKING:
-    Connection: TypeAlias = PoolConnectionProxy[Record]
+    PostgreSQLConnection: TypeAlias = PoolConnectionProxy[Record]
 else:
-    Connection: TypeAlias = PoolConnectionProxy
+    PostgreSQLConnection: TypeAlias = PoolConnectionProxy
 
 
-class PostgreSQL(DatabaseEngineInterface[Connection]):
+class PostgreSQL(DatabaseEngineInterface[PostgreSQLConnection]):
     """PostgreSQL database engine"
 
     Uses asyncpg library to connect to PostgreSQL databases.
@@ -36,12 +36,12 @@ class PostgreSQL(DatabaseEngineInterface[Connection]):
             raise PostgreSQLIsNotConnectedError
         await self._pool.close()
 
-    async def acquire(self) -> Connection:
+    async def acquire(self) -> PostgreSQLConnection:
         if not self._pool:
             raise PostgreSQLIsNotConnectedError
         return await self._pool.acquire()
 
-    async def release(self, conn: Connection) -> None:
+    async def release(self, conn: PostgreSQLConnection) -> None:
         if not self._pool:
             raise PostgreSQLIsNotConnectedError
         await self._pool.release(connection=conn)

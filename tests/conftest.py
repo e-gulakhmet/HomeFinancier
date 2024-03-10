@@ -1,14 +1,36 @@
+import asyncio
 import uuid
 from datetime import datetime, timezone
+from typing import AsyncGenerator, Generator
 
 import pytest
 
+from src.infrastructure.databases import Database, PostgreSQL, PostgreSQLConnection
 from src.storages import OwnerID as StorageOwnerID
 from src.storages import Storage, StorageID, StorageLink
 from src.transactions import Amount, Category, Transaction, TransactionType
 from src.transactions import OwnerID as TransactionOwnerID
 from src.transactions import StorageLink as TransactionsStorageLink
 from src.users import Email, HashedPassword, User, UserID
+
+
+@pytest.fixture(scope="session")
+def event_loop() -> Generator[asyncio.AbstractEventLoop, None, None]:
+    loop = asyncio.get_event_loop_policy().new_event_loop()
+    yield loop
+    loop.close()
+
+
+@pytest.fixture(scope="session")
+def postgresql_engine() -> PostgreSQL:
+    return PostgreSQL(dsn="postgresql://postgres:postgres@localhost:5432/homefinancier_test")
+
+
+@pytest.fixture(scope="session")
+async def postgresql_db(postgresql_engine: PostgreSQL) -> AsyncGenerator[Database[PostgreSQLConnection], None]:
+    db = Database(engine=postgresql_engine)
+    async with db.connect():
+        yield db
 
 
 @pytest.fixture()

@@ -3,14 +3,14 @@ import pytest
 from pytest_mock import MockerFixture
 
 from src.infrastructure.databases.postgresql import (
-    Connection,
     PostgreSQL,
+    PostgreSQLConnection,
     PostgreSQLIsNotConnectedError,
 )
 
 
 async def test_error_if_pool_does_not_exists(postgresql: PostgreSQL, mocker: MockerFixture) -> None:
-    connection = mocker.Mock(spec=Connection)
+    connection = mocker.Mock(spec=PostgreSQLConnection)
 
     with pytest.raises(PostgreSQLIsNotConnectedError):
         await postgresql.release(conn=connection)
@@ -22,7 +22,7 @@ async def test_error_if_pool_does_not_exists(postgresql: PostgreSQL, mocker: Moc
 # So at this moment we only can check, that connection becomes unavailable after release.
 async def test_connection_is_unavailable_after_release(
     connected_postgresql: PostgreSQL,
-    postgresql_pool_connection: Connection,
+    postgresql_pool_connection: PostgreSQLConnection,
 ) -> None:
     await connected_postgresql.release(conn=postgresql_pool_connection)
 
