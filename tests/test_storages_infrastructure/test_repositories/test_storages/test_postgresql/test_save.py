@@ -1,14 +1,19 @@
 from src.infrastructure.databases import Database, PostgreSQLConnection
 from src.storages import Storage
-from src.storages_infrastructure import PostgreSQLStoragesRepository
+from src.storages_infrastructure import PostgreSQLGoogleSheetsStoragesRepository
+from src.users import User
+from tests.utils import save_user_to_postgresql
 
 
 async def test_storage_is_saved_to_db(
     storage: Storage,
-    repository: PostgreSQLStoragesRepository,
+    repository: PostgreSQLGoogleSheetsStoragesRepository,
     postgresql_db: Database[PostgreSQLConnection],
+    user: User,
 ) -> None:
     async with postgresql_db.open_curr_context_connection() as connection, connection.transaction():
+        await save_user_to_postgresql(connection, user)
+
         await repository.save(storage)
 
         stmt = "SELECT * FROM storages WHERE id = $1"

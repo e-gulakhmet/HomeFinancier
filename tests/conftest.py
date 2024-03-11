@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 from typing import AsyncGenerator, Generator
 
 import pytest
+from gspread import Client as GoogleSheetsClient
+from pytest_mock import MockerFixture
 
 from src.infrastructure.databases import Database, PostgreSQL, PostgreSQLConnection
 from src.storages import OwnerID as StorageOwnerID
@@ -34,6 +36,11 @@ async def postgresql_db(postgresql_engine: PostgreSQL) -> AsyncGenerator[Databas
 
 
 @pytest.fixture()
+def google_sheets_client_mock(mocker: MockerFixture) -> GoogleSheetsClient:
+    return mocker.Mock(spec=GoogleSheetsClient)
+
+
+@pytest.fixture()
 def user() -> User:
     return User(
         id=UserID(uuid.uuid4()),
@@ -45,14 +52,14 @@ def user() -> User:
 
 
 @pytest.fixture()
-def storage() -> Storage:
+def storage(user: User) -> Storage:
     return Storage(
         id=StorageID(uuid.uuid4()),
         created_at=datetime.now(tz=timezone.utc),
         link=StorageLink("https://docs.google.com/spreadsheets/d/1/edit"),
         expenses_table_link=StorageLink("https://docs.google.com/spreadsheets/d/1/edit"),
         income_table_link=StorageLink("https://docs.google.com/spreadsheets/d/1/edit"),
-        owner_id=StorageOwnerID(uuid.uuid4()),
+        owner_id=StorageOwnerID(user.id),
     )
 
 
