@@ -74,6 +74,14 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: storages storages_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.storages
+    ADD CONSTRAINT storages_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
