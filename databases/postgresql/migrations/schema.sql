@@ -23,6 +23,20 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: storages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.storages (
+    id uuid NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    owner_id uuid NOT NULL,
+    link character varying(255) NOT NULL,
+    expenses_table_link character varying(255) NOT NULL,
+    income_table_link character varying(255) NOT NULL
+);
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -44,11 +58,27 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: storages storages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.storages
+    ADD CONSTRAINT storages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: storages storages_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.storages
+    ADD CONSTRAINT storages_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id);
 
 
 --
@@ -61,4 +91,5 @@ ALTER TABLE ONLY public.users
 --
 
 INSERT INTO public.schema_migrations (version) VALUES
-    ('20240304141536');
+    ('20240304141536'),
+    ('20240310061501');
