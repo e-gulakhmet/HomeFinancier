@@ -1,5 +1,5 @@
-from .storages import PostgreSQLStoragesRepository
+from .storages import PostgreSQLGoogleSheetsStoragesRepository
 
 __all__ = [
-    "PostgreSQLStoragesRepository",
+    "PostgreSQLGoogleSheetsStoragesRepository",
 ]

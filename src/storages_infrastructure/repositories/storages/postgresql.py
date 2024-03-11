@@ -1,10 +1,14 @@
+from gspread import Client as GoogleSheetsClient
+from gspread import SpreadsheetNotFound
+
 from src.infrastructure.databases import Database, PostgreSQLConnection
 from src.storages import OwnerID, Storage, StorageLink
 
 
-class PostgreSQLStoragesRepository:
-    def __init__(self, db: Database[PostgreSQLConnection]) -> None:
+class PostgreSQLGoogleSheetsStoragesRepository:
+    def __init__(self, db: Database[PostgreSQLConnection], gsc: GoogleSheetsClient) -> None:
         self._db = db
+        self._gsc = gsc
 
     async def save(self, storage: Storage) -> None:
         stmt = """
@@ -26,6 +30,9 @@ class PostgreSQLStoragesRepository:
         result = await self._db.connection.fetchval(stmt, owner_id)
         return bool(result)
 
-    async def is_accessable(self, _: StorageLink) -> bool:
-        # Placeholder implementation
+    async def is_accessable(self, link: StorageLink) -> bool:
+        try:
+            self._gsc.open_by_url(link)
+        except SpreadsheetNotFound:
+            return False
         return True
