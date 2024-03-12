@@ -5,9 +5,12 @@ from pytest_mock import MockerFixture
 
 from src.storages import Storage
 from src.transactions import (
+    StorageLink,
+    StorageLinkIsUnavailableError,
     Transaction,
     TransactionCreateInput,
     TransactionCreateUseCase,
+    TransactionsNoStorageByLinkError,
     UserShouldHavePrimaryStorageError,
 )
 
@@ -50,6 +53,22 @@ async def test_transaction_is_saved_to_repository(
     await usecase.execute(input_)
 
     spy.assert_called_once_with(expected_transaction)
+
+
+async def test_error_if_storage_link_is_unavailable(
+    usecase: TransactionCreateUseCase,
+    input_: TransactionCreateInput,
+    mocker: MockerFixture,
+    storage: Storage,
+) -> None:
+    mocker.patch.object(
+        usecase._transaction_repo,
+        "save",
+        side_effect=TransactionsNoStorageByLinkError(link=StorageLink(storage.expenses_table_link)),
+    )
+
+    with pytest.raises(StorageLinkIsUnavailableError):
+        await usecase.execute(input_)
 
 
 async def test_transaction_entity_is_returned(
