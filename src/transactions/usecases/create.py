@@ -4,8 +4,8 @@ from datetime import datetime
 from src.storages import OwnerID as StorageOwnerID
 from src.storages import StorageGetQueryProtocol
 from src.transactions.entities import Transaction
-from src.transactions.exceptions import UserShouldHavePrimaryStorageError
-from src.transactions.repositories import TransactionsRepositoryProtocol
+from src.transactions.exceptions import StorageLinkIsUnavailableError, UserShouldHavePrimaryStorageError
+from src.transactions.repositories import TransactionsNoStorageByLinkError, TransactionsRepositoryProtocol
 from src.transactions.types import Amount, Category, OwnerID, StorageLink, TransactionType
 
 
@@ -44,6 +44,9 @@ class TransactionCreateUseCase:
             created_at=input_.created_at,
         )
 
-        await self._transaction_repo.save(transaction)
+        try:
+            await self._transaction_repo.save(transaction)
+        except TransactionsNoStorageByLinkError as e:
+            raise StorageLinkIsUnavailableError(transaction.storage_link) from e
 
         return transaction
