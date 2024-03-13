@@ -68,7 +68,7 @@ def transaction() -> Transaction:
     return Transaction(
         created_at=datetime.now(tz=timezone.utc),
         owner_id=TransactionOwnerID(uuid.uuid4()),
-        storage_link=TransactionsStorageLink("https://www.example.com/expenses"),
+        storage_link=TransactionsStorageLink("https://docs.google.com/spreadsheets/d/1/edit"),
         type_=TransactionType.EXPENSE,
         amount=Amount(100),
         category=Category("Rent"),

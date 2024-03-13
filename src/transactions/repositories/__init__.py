@@ -1,5 +1,3 @@
-from .transactions import TransactionsRepositoryProtocol
+from .transactions import TransactionsNoStorageByLinkError, TransactionsRepositoryProtocol
 
-__all__ = [
-    "TransactionsRepositoryProtocol",
-]
+__all__ = ["TransactionsRepositoryProtocol", "TransactionsNoStorageByLinkError"]
