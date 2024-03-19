@@ -1,6 +1,6 @@
 from .entities import User
 from .ports import HashingPortProtocol
-from .queries import IsExistsUserQueryProtocol
+from .queries import UserExistsQueryProtocol
 from .repositories import UsersRepositoryProtocol
 from .types import Email, HashedPassword, Password, UserID
 from .usecases import (
@@ -14,7 +14,7 @@ __all__ = [
     # ports
     "HashingPortProtocol",
     # queries
-    "IsExistsUserQueryProtocol",
+    "UserExistsQueryProtocol",
     # repositories
     "UsersRepositoryProtocol",
     # types
