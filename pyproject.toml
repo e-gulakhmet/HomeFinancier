@@ -7,9 +7,10 @@ readme = "README.md"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "3.12"
 asyncpg = "0.29.0"
 gspread = "^6.0.2"
+homefinancier-grpc = {git = "https://github.com/e-gulakhmet/HomeFinancierProtos.git", subdirectory = "generated/python"}
 
 [tool.poetry.group.dev.dependencies]
 ruff = "==0.0.287"
