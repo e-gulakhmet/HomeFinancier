@@ -10,5 +10,4 @@ class StorageGetQueryProtocol(Protocol):
         owner_id: OwnerID
         primary: bool
 
-    async def query(self, filter_: Filter) -> Storage:
-        ...
+    async def query(self, filter_: Filter) -> Storage | None: ...
