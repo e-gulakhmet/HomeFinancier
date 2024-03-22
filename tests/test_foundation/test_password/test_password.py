@@ -1,6 +1,6 @@
 import pytest
 
-from src.users import Password
+from src.foundation.password import Password
 
 
 def test_error_if_password_length_is_less_than_min_length() -> None:

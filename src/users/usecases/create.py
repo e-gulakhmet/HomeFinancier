@@ -3,10 +3,12 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 
 from src.exceptions.core import ValidationError
+from src.foundation.email import Email
+from src.foundation.password import Password
 from src.users.entities import User
 from src.users.ports import HashingPortProtocol
 from src.users.repositories import UsersRepositoryProtocol
-from src.users.types import Email, Password, UserID
+from src.users.types import UserID
 
 
 @dataclass(frozen=True)

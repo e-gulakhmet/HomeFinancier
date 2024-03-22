@@ -1,5 +1,6 @@
+from src.foundation.email import Email
 from src.infrastructure.databases import Database, PostgreSQLConnection
-from src.users import Email, User
+from src.users import User
 from src.users_infrastructure.repositories.users import PostgreSQLUsersRepository
 
 

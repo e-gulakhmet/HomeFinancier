@@ -2,7 +2,7 @@ from .entities import User
 from .ports import HashingPortProtocol
 from .queries import UserExistsQueryProtocol
 from .repositories import UsersRepositoryProtocol
-from .types import Email, HashedPassword, Password, UserID
+from .types import HashedPassword, UserID
 from .usecases import (
     UserCreateInput,
     UserCreateUseCase,
@@ -18,9 +18,7 @@ __all__ = [
     # repositories
     "UsersRepositoryProtocol",
     # types
-    "Email",
     "HashedPassword",
-    "Password",
     "UserID",
     # usecases
     "UserCreateInput",
