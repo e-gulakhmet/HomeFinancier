@@ -1,11 +1,13 @@
 from .entities import User
 from .ports import HashingPortProtocol
 from .queries import UserExistsQueryProtocol, UserGetQueryProtocol
-from .repositories import UsersRepositoryProtocol
+from .repositories import UsersRepositoryGetFilter, UsersRepositoryProtocol
 from .types import HashedPassword, UserID
 from .usecases import (
     UserCreateInput,
     UserCreateUseCase,
+    UserVerifyPasswordInput,
+    UserVerifyPasswordUseCase,
 )
 
 __all__ = [
@@ -17,6 +19,7 @@ __all__ = [
     "UserExistsQueryProtocol",
     "UserGetQueryProtocol",
     # repositories
+    "UsersRepositoryGetFilter",
     "UsersRepositoryProtocol",
     # types
     "HashedPassword",
@@ -24,4 +27,6 @@ __all__ = [
     # usecases
     "UserCreateInput",
     "UserCreateUseCase",
+    "UserVerifyPasswordInput",
+    "UserVerifyPasswordUseCase",
 ]
