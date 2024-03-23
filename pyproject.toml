@@ -36,6 +36,7 @@ ignore = [
     "A003", # https://docs.astral.sh/ruff/rules/builtin-attribute-shadowing/
     "TCH002", # https://docs.astral.sh/ruff/rules/typing-only-third-party-import/
     "FA102", # https://docs.astral.sh/ruff/rules/future-required-type-annotation/
+    "RET504" # https://docs.astral.sh/ruff/rules/unnecessary-assign/
 ]
 fix = true
 exclude = [
