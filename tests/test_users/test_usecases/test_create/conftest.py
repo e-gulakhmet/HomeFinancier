@@ -1,7 +1,9 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from src.users import Email, HashingPortProtocol, Password, UserCreateInput, UserCreateUseCase, UsersRepositoryProtocol
+from src.foundation.email import Email
+from src.foundation.password import Password
+from src.users import HashingPortProtocol, UserCreateInput, UserCreateUseCase, UsersRepositoryProtocol
 
 
 @pytest.fixture()

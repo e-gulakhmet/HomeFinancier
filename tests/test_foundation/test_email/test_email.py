@@ -1,6 +1,6 @@
 import pytest
 
-from src.users import Email
+from src.foundation.email import Email
 
 
 def test_error_if_email_is_invalid() -> None:

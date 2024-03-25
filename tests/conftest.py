@@ -7,13 +7,14 @@ import pytest
 from gspread import Client as GoogleSheetsClient
 from pytest_mock import MockerFixture
 
+from src.foundation.email import Email
 from src.infrastructure.databases import Database, PostgreSQL, PostgreSQLConnection
 from src.storages import OwnerID as StorageOwnerID
 from src.storages import Storage, StorageID, StorageLink
 from src.transactions import Amount, Category, Transaction, TransactionType
 from src.transactions import OwnerID as TransactionOwnerID
 from src.transactions import StorageLink as TransactionsStorageLink
-from src.users import Email, HashedPassword, User, UserID
+from src.users import HashedPassword, User, UserID
 
 
 @pytest.fixture(scope="session")
