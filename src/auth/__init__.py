@@ -9,6 +9,7 @@ from .facade import (
 from .ports.authorization import (
     AuthorizationPortProtocol,
     GenAuthCredentialsInput,
+    GenAuthCredentialsOutput,
     TokenIsExpiredError,
     TokenIsInvalidError,
 )
@@ -26,6 +27,7 @@ __all__ = [
     # ports.authorization
     "AuthorizationPortProtocol",
     "GenAuthCredentialsInput",
+    "GenAuthCredentialsOutput",
     "TokenIsExpiredError",
     "TokenIsInvalidError",
     # types
