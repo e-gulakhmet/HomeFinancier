@@ -19,5 +19,5 @@ async def test_user_is_saved_to_db(
             "created_at": user.created_at,
             "updated_at": user.updated_at,
             "email": user.email,
-            "password_hash": str(user.password),
+            "password_hash": user.password.decode(),
         }

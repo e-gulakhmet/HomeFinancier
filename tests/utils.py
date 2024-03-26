@@ -13,7 +13,7 @@ async def save_user_to_postgresql(db_connection: PostgreSQLConnection, user: Use
         user.created_at,
         user.updated_at,
         user.email,
-        str(user.password),
+        user.password.decode(),
     )
 
 

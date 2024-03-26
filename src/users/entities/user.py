@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from src.users.types import Email, HashedPassword, UserID
+from src.foundation.email import Email
+from src.users.types import HashedPassword, UserID
 
 
 @dataclass
