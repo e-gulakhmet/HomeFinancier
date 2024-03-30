@@ -7,9 +7,9 @@ readme = "README.md"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "3.12.x"
 asyncpg = "0.29.0"
-gspread = "^6.0.2"
+gspread = "6.0.2"
 pyjwt = "^2.8.0"
 grpcio = "^1.62.1"
 homefinancier-grpc = {git = "https://github.com/e-gulakhmet/HomeFinancierProtos.git", subdirectory = "gen/python"}
