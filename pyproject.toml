@@ -10,7 +10,10 @@ package-mode = false
 python = "3.12"
 asyncpg = "0.29.0"
 gspread = "^6.0.2"
-homefinancier-grpc = {git = "https://github.com/e-gulakhmet/HomeFinancierProtos.git", subdirectory = "generated/python"}
+pyjwt = "^2.8.0"
+grpcio = "^1.62.1"
+homefinancier-grpc = {git = "https://github.com/e-gulakhmet/HomeFinancierProtos.git", subdirectory = "gen/python"}
+protobuf = "^5.26.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "==0.0.287"
@@ -59,6 +62,9 @@ exclude = [
     "S106", # https://docs.astral.sh/ruff/rules/hardcoded-password-func-arg/
     "PT004", # https://docs.astral.sh/ruff/rules/pytest-missing-fixture-name-underscore/
     "BLE001", # https://docs.astral.sh/ruff/rules/blind-except/
+]
+"src/infrastructure/transport/gprc/*" = [
+    "N802" # https://docs.astral.sh/ruff/rules/invalid-function-name/
 ]
 
 [tool.mypy]
