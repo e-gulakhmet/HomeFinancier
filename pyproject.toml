@@ -63,7 +63,7 @@ exclude = [
     "PT004", # https://docs.astral.sh/ruff/rules/pytest-missing-fixture-name-underscore/
     "BLE001", # https://docs.astral.sh/ruff/rules/blind-except/
 ]
-"src/infrastructure/transport/gprc/*" = [
+"src/infrastructure/transport/grpc/*" = [
     "N802" # https://docs.astral.sh/ruff/rules/invalid-function-name/
 ]
 
