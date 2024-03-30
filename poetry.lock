@@ -381,7 +381,7 @@ name = "homefinancier-grpc"
 version = "0.1.3"
 description = "This library contains gRPC files and stubs for HomeFinancier's services"
 optional = false
-python-versions = ">=3.10,<3.13"
+python-versions = ">=3.10,<4"
 files = []
 develop = false
 
@@ -389,7 +389,7 @@ develop = false
 type = "git"
 url = "https://github.com/e-gulakhmet/HomeFinancierProtos.git"
 reference = "HEAD"
-resolved_reference = "28effa635c2ab0b5fd541c3b1a60b945368fa40b"
+resolved_reference = "bbf2e109de41841c5368baf28d491e53d52d62c4"
 subdirectory = "gen/python"
 
 [[package]]
@@ -927,5 +927,5 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 
 [metadata]
 lock-version = "2.0"
-python-versions = "3.12"
-content-hash = "4f04dfc598c8dece317bf0168d17e01d0e28af37db726da9ac9406e1fa8a2fc5"
+python-versions = "^3.12"
+content-hash = "bd95dcdda28a17d31efab5f9738245797c1f1175936e8f44b56a865319428330"
