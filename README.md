@@ -1,34 +1,31 @@
-# HomeFinancier
-Твой собственный домашний финансист
+Your Personal Home Finance Manager
 
 ## Business
 ### Problem
-1. Удобное сохранение твоих трат в твое хранилище.
-	1. Например все твои траты содержаться в excel в Google Drive. Чтобы добавить одну трату, тебе нужно сделать следующее:
-		1. Открыть Google Drive.
-		2. Открыть папку в которой находится нужный тебе файл.
-		3. Открыть этот Excel файл.
-		4. Найти страницу в которой ты указываешь траты.
-		5. Пролистать в самый конец таблицы.
-		6. Добавить данные о твоих тратах.
-	2. Как это происходит с Home Financier, используя Telegram Bot.
-		1. Открыть Telegram.
-		2. Открыть чат с ботом Home Financier.
-		3. Нажать кнопку в меню: `внести траты`.
-		4. Указать необходимые данныe.
+1. Conveniently save your expenses in your own storage.
+        1. For example, all your expenses are kept in an Excel file on Google Drive. To add an expense, you need to:
+                1. Open Google Drive.
+                2. Open the folder where the required file is located.
+                3. Open the Excel file.
+                4. Find the sheet where you record expenses.
+                5. Scroll to the very end of the table.
+                6. Enter the details of your expenses.
+        2. How it works with Home Financier using a Telegram Bot.
+                1. Open Telegram.
+                2. Open a chat with the Home Financier bot.
+                3. Press the menu button: `record expenses`.
+                4. Provide the necessary details.
 
 ### Features
-1. Подключение твоего хранилища.
-	1. Все данные хранятся у тебя, сервис не хранит их у себя.
-2. Внесение трат с информацией о них.
-	1. Траты сохраняются в твое хранилище.
-		1. Дает тебе возможность иметь полный контроль над твоими тратами.
+1. Connect your own storage.
+        1. All data is stored on your side, the service does not keep it.
+2. Record expenses with information about them.
+        1. Expenses are saved in your storage.
+                1. This gives you full control over your expenses.
 
-
-## Documentation
+## For developers
 ### Migrations
-[dbmate](https://github.com/amacneil/dbmate) is used for migrations. It is CLI program that gives you an ability to manage migration using raw SQL. And, heh, written in GO :)
+We use [dbmate](https://github.com/amacneil/dbmate) for database migrations. It is a CLI program that allows you to manage migrations using raw SQL. And yes, it's written in Go!
 
-
-## CLI interface
-[just](https://github.com/casey/just) is used for CLI interface. It is like a `make`, but lighter and faster.
+### CLI Interface
+For the CLI interface, we use [just](https://github.com/casey/just), which is similar to `make` but lighter and faster.
