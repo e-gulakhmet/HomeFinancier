@@ -361,6 +361,21 @@ files = [
 protobuf = ["grpcio-tools (>=1.62.1)"]
 
 [[package]]
+name = "grpcio-reflection"
+version = "1.62.1"
+description = "Standard Protobuf Reflection Service for gRPC"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "grpcio-reflection-1.62.1.tar.gz", hash = "sha256:abd453001991871031315ef2d82affe93080c0433fa3a007be34bf427e28a88a"},
+    {file = "grpcio_reflection-1.62.1-py3-none-any.whl", hash = "sha256:3eff85f74b6b40f8e6116e8363da1efccf775b7a063d2c6fd12c190bbb9676ed"},
+]
+
+[package.dependencies]
+grpcio = ">=1.62.1"
+protobuf = ">=4.21.6"
+
+[[package]]
 name = "gspread"
 version = "6.0.2"
 description = "Google Spreadsheets Python API"
@@ -928,4 +943,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "3.12.x"
-content-hash = "1889124813196d5ea37785ada55bc81447bca87a1881f6cd49233502c8300c79"
+content-hash = "416ae7f0abb7ef118d24743f2a9ccdbbf0ec58e44a76a349f390322fa2962aab"
