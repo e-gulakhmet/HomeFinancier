@@ -1,7 +1,10 @@
-name: Build & Deploy
+name: Deploy
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Quality Check"]
+    types:
+      - completed
     branches:
       - main
 
