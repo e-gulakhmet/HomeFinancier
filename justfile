@@ -2,16 +2,16 @@ test-all:
   pytest tests
 
 create-migration NAME:
-  dotenv -f envs/dev.env run -- dbmate --env-file ".dbmate.env" new {{NAME}}
+  dotenv -f envs/dev.env run -- dbmate new {{NAME}}
 
 migrate:
-  dotenv -f envs/dev.env run -- dbmate --env-file ".dbmate.env" up
+  dotenv -f envs/dev.env run -- dbmate up
 
 rollback-migration:
-  dotenv -f envs/dev.env run -- dbmate --env-file ".dbmate.env" down
+  dotenv -f envs/dev.env run -- dbmate down
 
 up-test-env:
-  dotenv -f envs/test.env run -- dbmate --env-file ".dbmate.env" up
+  dotenv -f envs/test.env run -- dbmate up
 
 drop-test-env:
-  dotenv -f envs/test.env run -- dbmate --env-file ".dbmate.env" drop
+  dotenv -f envs/test.env run -- dbmate drop
