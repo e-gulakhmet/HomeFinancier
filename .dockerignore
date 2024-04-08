@@ -1,14 +1,2 @@
 __pycache__
 *.pyc
-.mypy_cache
-.pytest_cache
-.ruff_cache
-tests
-.venv
-.git
-.github
-.idea
-.sql
-.env
-.env.template
-LICENSE

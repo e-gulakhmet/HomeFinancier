@@ -4,9 +4,12 @@ services:
     build:
       context: .
       args:
-        - DATABASE_URL=${DATABASE_URL}
+        - DATABASE_URL=${POSTGRESQL_DSN}?sslmode=false
     container_name: homefinancier_app
-    env_file: .env
+    environment:
+      - GRPC_HOST=[::a]
+      - GRPC_PORT=80
+      - POSTGRESQL_DSN=postgresql://postgres:postgres@host.docker.internal:5432/homefinancier
     depends_on:
       - postgres
     ports:
