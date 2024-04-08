@@ -26,4 +26,6 @@ class gRPCServer:  # noqa: N801 # gRPCServer looks better than GPRCServer (https
 
         logging.info("Starting gRPC server on %s", address)
         await self._server.start()
+
+    async def wait_for_termination(self) -> None:
         await self._server.wait_for_termination()

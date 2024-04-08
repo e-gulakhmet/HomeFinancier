@@ -26,6 +26,7 @@ async def main() -> None:
 
     async with db.connect():
         await grpc_server.start(host=config.grpc_host, port=config.grpc_port)
+        await grpc_server.wait_for_termination()
 
 
 if __name__ == "__main__":
