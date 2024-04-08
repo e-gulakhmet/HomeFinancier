@@ -26,6 +26,3 @@ Your Personal Home Finance Manager
 ## For developers
 ### Migrations
 [dbmate](https://github.com/amacneil/dbmate) is used for database migrations. It is a CLI program that allows you to manage migrations using raw SQL. And yes, it's written in Go!
-
-### CLI Interface
-For the CLI interface, we use [just](https://github.com/casey/just), which is similar to `make` but lighter and faster.
