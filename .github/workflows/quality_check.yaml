@@ -122,4 +122,4 @@ jobs:
           dbmate --help
 
       - name: Run tests
-        run: poetry run just up-test-env test-all
+        run: dotenv -f envs/test.env run -- poetry run make test-all
