@@ -22,7 +22,7 @@ async def main() -> None:
 
     grpc_users_service = gRPCUsersService(user_create_use_case=user_create_use_case)
     grpc_server = gRPCServer(users_service=grpc_users_service)
-
+    grpc_server.enable_reflection()
 
     async with db.connect():
         await grpc_server.start(host=config.grpc_host, port=config.grpc_port)
