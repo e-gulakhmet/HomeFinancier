@@ -7,7 +7,7 @@ ENV PYTHONPATH=/app
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
-  make
+  make curl
 
 RUN pip install poetry
 
@@ -18,4 +18,4 @@ COPY ./databases ./databases
 RUN poetry config virtualenvs.create false \
   && poetry install --no-root --only main
 
-CMD ["python", "src/main.py"]
+CMD ["make", "serve"]
