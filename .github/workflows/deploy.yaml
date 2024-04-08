@@ -22,4 +22,4 @@ jobs:
             docker-compose stop
             docker-compose rm -f
             git pull
-            docker-compose up -d
+            docker-compose up -d --build
