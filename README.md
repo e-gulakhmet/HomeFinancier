@@ -24,8 +24,11 @@ Your Personal Home Finance Manager
                 1. This gives you full control over your expenses.
 
 ## For developers
+### Environment
+Rename the `.env.template` file to `.env`. This file contains all necessary environment variables.
+
 ### Migrations
-We use [dbmate](https://github.com/amacneil/dbmate) for database migrations. It is a CLI program that allows you to manage migrations using raw SQL. And yes, it's written in Go!
+[dbmate](https://github.com/amacneil/dbmate) is used for database migrations. It is a CLI program that allows you to manage migrations using raw SQL. And yes, it's written in Go!
 
 ### CLI Interface
 For the CLI interface, we use [just](https://github.com/casey/just), which is similar to `make` but lighter and faster.
