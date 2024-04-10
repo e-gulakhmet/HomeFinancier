@@ -1,3 +1,6 @@
+include .env
+export $(shell sed 's/=.*//' .env)
+
 dbmate:
 	@dbmate --version 2>/dev/null || (echo "dbmate is not installed, installing..." && curl -fsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64 && chmod +x /usr/local/bin/dbmate)
 
@@ -14,14 +17,14 @@ migrate: dbmate
 	dbmate up
 
 serve: migrate
-	python ./src/main.py
+	poetry run python ./src/main.py
 
 up-test-env:
-	$(MAKE) migrate
+	dbmate -e TEST_DATABASE_URL up
 
 drop-test-env: dbmate
-	dbmate drop
+	dbmate -e TEST_DATABASE_URL drop
 
 test-all: up-test-env
-	pytest tests
+	poetry run pytest tests
 	$(MAKE) drop-test-env
