@@ -17,7 +17,6 @@ async def test_user_id_is_returned(
     access_token: AccessToken,
     user: User,
 ) -> None:
-    raise ValueError
     authorization_port_mock.get_user_id.return_value = user.id
 
     result = await auth_facade.get_user_id(access_token)
