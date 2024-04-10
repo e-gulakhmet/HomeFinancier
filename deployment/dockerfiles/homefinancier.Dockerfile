@@ -13,7 +13,7 @@ RUN curl -fsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/relea
 
 RUN pip install poetry
 
-COPY Makefile ./pyproject.toml ./poetry.lock .
+COPY Makefile pyproject.toml poetry.lock .env .
 COPY ./src ./src
 COPY ./databases ./databases
 
