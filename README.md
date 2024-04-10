@@ -40,7 +40,7 @@ Before setting up Home Financier, ensure you have the following installed:
    ```
 4. Copy the environment template and configure the variables:
    ```bash
-   cp .env.template .env
+   cp .env.local .env
    ```
 5. Run database migrations:
    ```bash
@@ -60,8 +60,13 @@ To ensure the quality and stability of the application, run the test suite with:
 make test-all
 ```
 
-## Deployment
+## Docker
 For containerized environments, use the provided Docker Compose configuration to deploy Home Financier:
+1. Copy the environment template and configure the variables:
+```bash
+cp .env.docker .env
+```
+2. Run `docker-compose`:
 ```bash
 docker-compose -f deployment/docker-compose.yaml up --build
 ```
