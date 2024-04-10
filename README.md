@@ -15,7 +15,7 @@ Home Financier is a personal finance management tool designed to simplify the wa
 To get started with Home Financier, follow these simple steps:
 1. Clone the repository to your local machine.
 2. Install the required dependencies using Poetry.
-3. Set up your environment variables based on the `.env.template`.
+3. Set up your environment variables based on the `.env.local`.
 4. Initialize the database and apply migrations.
 5. Start the server using the provided Makefile commands.
 

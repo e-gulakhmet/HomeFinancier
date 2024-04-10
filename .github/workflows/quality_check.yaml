@@ -118,5 +118,8 @@ jobs:
           sudo chmod +x /usr/local/bin/dbmate
           dbmate --help
 
+      - name: Set env variables
+        run: cp .env.local .env
+
       - name: Run tests
-        run: poetry run dotenv -f .env.template run -- make test-all
+        run: make test-all
