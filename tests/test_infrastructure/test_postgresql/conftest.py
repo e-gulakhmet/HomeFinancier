@@ -3,12 +3,13 @@ from typing import AsyncGenerator
 import asyncpg
 import pytest
 
+from src.config import Config
 from src.infrastructure.databases.postgresql import PostgreSQL, PostgreSQLConnection
 
 
 @pytest.fixture(scope="session")
-def postgresql_dsn() -> str:
-    return "postgresql://postgres:postgres@localhost:5432"
+def postgresql_dsn(config: Config) -> str:
+    return config.test_postgresql_dsn
 
 
 @pytest.fixture()

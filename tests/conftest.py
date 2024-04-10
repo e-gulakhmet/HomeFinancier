@@ -7,6 +7,7 @@ import pytest
 from gspread import Client as GoogleSheetsClient
 from pytest_mock import MockerFixture
 
+from src.config import Config
 from src.foundation.email import Email
 from src.infrastructure.databases import Database, PostgreSQL, PostgreSQLConnection
 from src.storages import OwnerID as StorageOwnerID
@@ -25,8 +26,13 @@ def event_loop() -> Generator[asyncio.AbstractEventLoop, None, None]:
 
 
 @pytest.fixture(scope="session")
-def postgresql_engine() -> PostgreSQL:
-    return PostgreSQL(dsn="postgresql://postgres:postgres@localhost:5432/homefinancier_test")
+def config() -> Config:
+    return Config()
+
+
+@pytest.fixture(scope="session")
+def postgresql_engine(config: Config) -> PostgreSQL:
+    return PostgreSQL(dsn=config.test_postgresql_dsn)
 
 
 @pytest.fixture(scope="session")
